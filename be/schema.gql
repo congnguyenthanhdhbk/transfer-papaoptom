@@ -1,0 +1,215 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CustomerRes {
+  code: Int
+  message: String
+  success: Boolean
+}
+
+type AddressRes {
+  id: String
+  type: String
+  name: String
+  info: String
+}
+
+type CardRes {
+  id: String
+  type: String
+  cardType: String
+  name: String
+  lastFourDigit: Int
+}
+
+type ContactRes {
+  id: String
+  type: String
+  number: String
+}
+
+type CustomerDtoRes {
+  id: Int
+  name: String
+  email: String
+  address: [AddressRes!]
+  card: [CardRes!]
+  contact: [ContactRes!]
+}
+
+type CategoryChildrenRes {
+  id: Int!
+  name: String!
+}
+
+type CategoryRes {
+  id: Int
+  name: String
+  child: CategoryChildrenRes
+}
+
+type SupplierRes {
+  id: Int
+  address: String
+  phone: String
+  email: String
+  company: String
+  exchangeRate: Int
+}
+
+type BrandRes {
+  id: Int
+  name: String
+}
+
+type GalleryRes {
+  url: String
+}
+
+type CharacteristicRes {
+  description: String
+  photo1: String
+  productMaterial: String
+  sizeChart: String
+  repeatedDimensions: String
+  steamInBox: String
+  liningMaterial: String
+  outsoleMaterial: String
+  country: String
+  heelHeight: String
+  platformHeight: String
+  picturedSize: String
+  purchasePrice: String
+  sellingPrice: String
+  season: String
+  shootingDate: String
+  purchaseCurrency: String
+  saleCurrency: String
+  floor: String
+  type: String
+  oldPurchasePrice: String
+  oldSellingPrice: String
+  insoleMaterial: String
+  videoReview: String
+  totalOldPurchasePrice: String
+  totalOldSellingPrice: String
+  totalPurchasePrice: String
+  totalSellingPrice: String
+  discountInPercent: String
+  gallery: [GalleryRes!]
+}
+
+type ProductFilterRes {
+  id: String
+  vcode: String
+  name: String
+  quantity: Int
+  category: CategoryRes
+  supplier: SupplierRes
+  brand: BrandRes
+  createdAt: DateTime
+  updatedAt: DateTime
+  characteristics: CharacteristicRes
+  slug: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ProductRes {
+  code: Int!
+  message: String!
+  data: [ProductFilterRes!]
+  totalDocs: Int
+  hasPrevPage: Boolean
+  hasNextPage: Boolean
+  totalPages: Int
+  prevPage: Int
+  nextPage: Int
+  pageNumber: Int
+  pageSize: Int
+}
+
+type ProductDetailRes {
+  code: Int
+  message: String
+  data: ProductFilterRes
+}
+
+type CategoriesChildrenRes {
+  id: String
+  title: String
+  slug: String
+}
+
+type CategoriesRes {
+  id: String
+  title: String
+  slug: String
+  icon: String
+  children: [CategoriesChildrenRes!]
+}
+
+type OrderRes {
+  code: Int
+  message: String
+  success: Boolean
+}
+
+type Query {
+  me(id: String): CustomerDtoRes!
+  categories(type: String): [CategoriesRes!]!
+  getProduct(slug: String!): ProductDetailRes!
+  searchShoes(pageNumber: Int, pageSize: Int, searchTerm: String): ProductRes!
+  filterProduct(filter: ProductFilterReq!): ProductRes!
+}
+
+input ProductFilterReq {
+  id: String
+  supplier: String
+  category: String
+  brand: String
+  name: String
+  pageSize: Int
+  pageNumber: Int
+}
+
+type Mutation {
+  updateContact(contactInput: String): CustomerDtoRes!
+  deleteContact(contactId: String): CustomerDtoRes!
+  addCustomers(customers: [CustomersReq!]): CustomerRes!
+  addOrder(product: String!, phoneNumber: String!): OrderRes!
+}
+
+input CustomersReq {
+  id: Int
+  name: String
+  email: String
+  address: [AddressReq!]
+  card: [CardReq!]
+  contact: [ContactReq!]
+}
+
+input AddressReq {
+  id: String
+  addressType: String
+  name: String
+  info: String
+}
+
+input CardReq {
+  id: String
+  usedType: String
+  cardType: String
+  name: String
+  lastFourDigit: Int
+}
+
+input ContactReq {
+  id: String
+  contactType: String
+  number: String
+}
